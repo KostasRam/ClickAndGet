@@ -34,6 +34,16 @@
         android:layout_marginEnd="71dp"
         android:layout_marginBottom="48dp" />
 
+    <Button
+        android:text="rammos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="127dp"
+        android:id="@+id/button4" />
+
     <TextView
         android:text="tsiotas3"
         android:layout_width="wrap_content"
