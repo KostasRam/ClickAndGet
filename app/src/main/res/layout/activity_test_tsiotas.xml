@@ -21,4 +21,16 @@
         android:layout_marginStart="67dp"
         android:layout_marginTop="100dp"
         android:id="@+id/textView" />
+
+    <TextView
+        android:text="tsiotas 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="71dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="48dp" />
 </RelativeLayout>
