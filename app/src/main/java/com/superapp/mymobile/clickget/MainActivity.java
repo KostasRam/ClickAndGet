@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fbdatabase = FirebaseDatabase.getInstance();
-        fbref = fbdatabase.getReference("mymessage");
+        fbref = fbdatabase.getReference("index");
     }
 
     public void write(View view) {
