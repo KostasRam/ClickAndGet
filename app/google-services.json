@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "709976716061",
+    "firebase_url": "https://clickandget-9c893.firebaseio.com",
+    "project_id": "clickandget-9c893",
+    "storage_bucket": "clickandget-9c893.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709976716061:android:091af387d5708d8a",
+        "android_client_info": {
+          "package_name": "com.superapp.mymobile.clickget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709976716061-0ue4s46d8a4sprgfkuhn5nu09s1ra84r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8FKLvr4oPF6lxxy9ZD_pEFl-qTwN-e3w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
