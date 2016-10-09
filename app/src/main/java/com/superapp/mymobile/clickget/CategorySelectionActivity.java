@@ -3,7 +3,6 @@ package com.superapp.mymobile.clickget;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,10 +18,10 @@ import java.util.Map;
 
 public class CategorySelectionActivity extends Activity {
 
-    private FirebaseDatabase fbdatabase;
-    private DatabaseReference fbref_categories;
-    private ListView listView;
-    private ArrayList<String> arrayList = new ArrayList<>();
+    FirebaseDatabase fbdatabase;
+    DatabaseReference fbref_categories;
+    ListView listView;
+    ArrayList<String> arrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class CategorySelectionActivity extends Activity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             String str = (String) (i + "");
             DatabaseReference product_ref = fbref_categories.child(str);
 
@@ -59,7 +58,7 @@ public class CategorySelectionActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selected_cat = (String) listView.getItemAtPosition(position);
+                String selected_cat = (String) listView.getItemAtPosition(position);
 
                 Intent intent = new Intent(CategorySelectionActivity.this, ProductSelectionActivity.class);
                 intent.putExtra("pass_selected_cat", selected_cat);

@@ -18,12 +18,13 @@ import java.util.Map;
 
 public class ProductSelectionActivity extends Activity {
 
-    private FirebaseDatabase fbdatabase;
-    private DatabaseReference fbref_product;
-    private ListView listView;
-    private ArrayList<String> arrayList = new ArrayList<>();
-    private String selected_cat;
-    private int numOfChildren;
+    FirebaseDatabase fbdatabase;
+    DatabaseReference fbref_products;
+    ListView listView;
+    ArrayList<String> arrayList = new ArrayList<>();
+    String selected_cat;
+    //int numOfProducts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +33,30 @@ public class ProductSelectionActivity extends Activity {
 
         selected_cat = getIntent().getExtras().getString("pass_selected_cat");
         listView = (ListView) findViewById(R.id.listView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
         fbdatabase = FirebaseDatabase.getInstance();
-        fbref_product = fbdatabase.getReference("PRODUCTS/SM_0/" + selected_cat);   /*  NA GINEI SM_0 DYNAMIKO  */
+        fbref_products = fbdatabase.getReference("PRODUCTS/SM_0/" + selected_cat);                   /*  NA GINEI SM_0 DYNAMIKO  */
 
         /*
-        int count = 0;
-        fbref_product.once('value', function(snapshot) {
-            count++;
-        });
+        fbref_products.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numOfProducts = (int) dataSnapshot.getChildrenCount();
+            }
 
-        numOfChildren = fbref_product.numChildrenCount();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         */
 
-        for (int i = 0; i < numOfChildren; i++) {
-            String str = (String) (i + "");
-            DatabaseReference product_ref = fbref_product.child(str);
+        //Loop μεταξύ όλων των παιδιών στη συγκεκριμένη διαδρομή της βάσης και add των προϊόντων στη λίστα arrayList.
+        for (int i = 0; i < 2; i++) {     //numOfProducts; i++) {                                    //ΑΝΤΙ ΓΙΑ 2, ΝΑ ΜΠΕΙ ΜΕΤΑΒΛΗΤΗ numOfProducts.
+            String str = i + "";
+            DatabaseReference product_ref = fbref_products.child(str);
 
-            product_ref.addValueEventListener(new ValueEventListener() {
+            product_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
@@ -67,7 +73,7 @@ public class ProductSelectionActivity extends Activity {
             });
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){                       /*  ΝΑ ΦΤΙΑΧΤΕΙ ΤΙ ΘΑ ΚΑΝΕΙ Η ΕΦΑΡΜΟΓΗ ΟΤΑΝ ΕΠΙΛΕΓΕΤΑΙ ΠΡΟΙΟΝ  */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final String selected_product = (String) listView.getItemAtPosition(position);
