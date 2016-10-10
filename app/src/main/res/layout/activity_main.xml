@@ -14,7 +14,7 @@
         android:text="GO TO CATEGORY SELECTION ACTIVITY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/cart_btn"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

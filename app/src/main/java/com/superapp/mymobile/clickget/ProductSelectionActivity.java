@@ -18,7 +18,7 @@ public class ProductSelectionActivity extends Activity {
 
     FirebaseDatabase fbdatabase;
     DatabaseReference fbref_products;
-    ListView listView;
+    ListView listView_products;
     ArrayList<String> arrayList = new ArrayList<>();
     String selected_cat;
 
@@ -29,9 +29,9 @@ public class ProductSelectionActivity extends Activity {
         setContentView(R.layout.activity_product_selection);
 
         selected_cat = getIntent().getExtras().getString("pass_selected_cat");
-        listView = (ListView) findViewById(R.id.listView);
+        listView_products = (ListView) findViewById(R.id.listView_products);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
-        listView.setAdapter(adapter);
+        listView_products.setAdapter(adapter);
         fbdatabase = FirebaseDatabase.getInstance();
         fbref_products = fbdatabase.getReference("PRODUCTS/SM_0/" + selected_cat);                   /*  NA GINEI SM_0 DYNAMIKO  */
 
@@ -54,10 +54,10 @@ public class ProductSelectionActivity extends Activity {
 
 
         //Εφαρμογή Listener με τις ενέργειες που θα γίνονται όταν επιλεχθεί ένα προϊόν.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){                       /*  ΝΑ ΦΤΙΑΧΤΕΙ ΤΙ ΘΑ ΚΑΝΕΙ Η ΕΦΑΡΜΟΓΗ ΟΤΑΝ ΕΠΙΛΕΓΕΤΑΙ ΠΡΟΙΟΝ  */
+        listView_products.setOnItemClickListener(new AdapterView.OnItemClickListener(){                       /*  ΝΑ ΦΤΙΑΧΤΕΙ ΤΙ ΘΑ ΚΑΝΕΙ Η ΕΦΑΡΜΟΓΗ ΟΤΑΝ ΕΠΙΛΕΓΕΤΑΙ ΠΡΟΙΟΝ  */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selected_product = (String) listView.getItemAtPosition(position);
+                final String selected_product = (String) listView_products.getItemAtPosition(position);
                 System.out.println("SELECTED_PRODUCT: " + selected_product);
             }
         });

@@ -19,7 +19,7 @@ public class CategorySelectionActivity extends Activity {
 
     FirebaseDatabase fbdatabase;
     DatabaseReference fbref_categories;
-    ListView listView;
+    ListView listView_categories;
     ArrayList<String> arrayList = new ArrayList<>();
 
     @Override
@@ -29,9 +29,9 @@ public class CategorySelectionActivity extends Activity {
 
         fbdatabase = FirebaseDatabase.getInstance();
         fbref_categories = fbdatabase.getReference("CATEGORIES");
-        listView = (ListView) findViewById(R.id.listView);
+        listView_categories = (ListView) findViewById(R.id.listView_categories);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
-        listView.setAdapter(adapter);
+        listView_categories.setAdapter(adapter);
 
 
         //Εφαρμόζουμε FOR-Loop μεταξύ των κατηγοριών της παραπάνω διαδρομής και προσθέτουμε την τιμή του κλειδιού "name" στην "arrayList".
@@ -52,10 +52,10 @@ public class CategorySelectionActivity extends Activity {
 
 
         //Όταν επιλεχθεί μία κατηγορία, την περνάμε στην ProductSelectionActivity.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView_categories.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selected_cat = (String) listView.getItemAtPosition(position);
+                String selected_cat = (String) listView_categories.getItemAtPosition(position);
 
                 Intent intent = new Intent(CategorySelectionActivity.this, ProductSelectionActivity.class);
                 intent.putExtra("pass_selected_cat", selected_cat);

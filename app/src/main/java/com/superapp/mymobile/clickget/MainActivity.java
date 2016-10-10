@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.button);
+        button = (Button) findViewById(R.id.cart_btn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
