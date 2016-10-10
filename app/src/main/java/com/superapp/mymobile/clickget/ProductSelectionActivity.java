@@ -2,7 +2,6 @@ package com.superapp.mymobile.clickget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class ProductSelectionActivity extends Activity {
@@ -23,7 +21,6 @@ public class ProductSelectionActivity extends Activity {
     ListView listView;
     ArrayList<String> arrayList = new ArrayList<>();
     String selected_cat;
-    //int numOfProducts;
 
 
     @Override
@@ -38,46 +35,30 @@ public class ProductSelectionActivity extends Activity {
         fbdatabase = FirebaseDatabase.getInstance();
         fbref_products = fbdatabase.getReference("PRODUCTS/SM_0/" + selected_cat);                   /*  NA GINEI SM_0 DYNAMIKO  */
 
-        /*
+
+        //Εφαρμόζουμε FOR-Loop μεταξύ των προϊόντων της παραπάνω διαδρομής και προσθέτουμε την τιμή του κλειδιού "productName" στην "arrayList".
         fbref_products.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                numOfProducts = (int) dataSnapshot.getChildrenCount();
+                for (DataSnapshot productSnapshot: dataSnapshot.getChildren()) {
+                    String productName = productSnapshot.child("productName").getValue(String.class);
+                    arrayList.add(productName);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        */
 
-        //Loop μεταξύ όλων των παιδιών στη συγκεκριμένη διαδρομή της βάσης και add των προϊόντων στη λίστα arrayList.
-        for (int i = 0; i < 2; i++) {     //numOfProducts; i++) {                                    //ΑΝΤΙ ΓΙΑ 2, ΝΑ ΜΠΕΙ ΜΕΤΑΒΛΗΤΗ numOfProducts.
-            String str = i + "";
-            DatabaseReference product_ref = fbref_products.child(str);
 
-            product_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    String productName = (String) map.get("productName");
-
-                    arrayList.add(productName);
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //textView.setText("The read failed: " + databaseError.getMessage());
-                }
-            });
-        }
-
+        //Εφαρμογή Listener με τις ενέργειες που θα γίνονται όταν επιλεχθεί ένα προϊόν.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){                       /*  ΝΑ ΦΤΙΑΧΤΕΙ ΤΙ ΘΑ ΚΑΝΕΙ Η ΕΦΑΡΜΟΓΗ ΟΤΑΝ ΕΠΙΛΕΓΕΤΑΙ ΠΡΟΙΟΝ  */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final String selected_product = (String) listView.getItemAtPosition(position);
-                Log.v("SELECTED_PRODUCT",selected_product);
+                System.out.println("SELECTED_PRODUCT: " + selected_product);
             }
         });
     }//end onCreate()

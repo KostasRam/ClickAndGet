@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class CategorySelectionActivity extends Activity {
@@ -34,27 +33,25 @@ public class CategorySelectionActivity extends Activity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
 
-        for (int i = 0; i < 5; i++) {
-            String str = (String) (i + "");
-            DatabaseReference product_ref = fbref_categories.child(str);
 
-            product_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    String cat = (String) map.get("name");
-
-                    arrayList.add(cat);
+        //Εφαρμόζουμε FOR-Loop μεταξύ των κατηγοριών της παραπάνω διαδρομής και προσθέτουμε την τιμή του κλειδιού "name" στην "arrayList".
+        fbref_categories.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot categorySnapshot: dataSnapshot.getChildren()) {
+                    String category = categorySnapshot.child("name").getValue(String.class);
+                    arrayList.add(category);
                     adapter.notifyDataSetChanged();
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //textView.setText("The read failed: " + databaseError.getMessage());
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
+
+        //Όταν επιλεχθεί μία κατηγορία, την περνάμε στην ProductSelectionActivity.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
